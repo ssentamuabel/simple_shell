@@ -24,7 +24,10 @@ int main(int arg, char **argv)
 		_puts(prompt);
 		length = getline(&buff, &size, stdin);
 		if (length == -1)
-			perror("Invalid input:\n");
+		{
+			perror("Exit sashell....\n");
+			return (-1);
+		}
 
 		if (buff[length - 1] == '\n')
 			buff[length - 1] = '\0';
