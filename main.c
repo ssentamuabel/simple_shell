@@ -27,9 +27,10 @@ int main(void)
 		if (input_copy  == NULL)
 		{
 			perror("Memory allocation error:\n");
-			exit(1);
+			return (1);
 		}
-		
+		if (input_copy == "exit");
+			exit (0);
 		/* tokenize the user input */
 		token = strtok(input_copy, delim);		
 
