@@ -1,55 +1,56 @@
 #include "main.h"
-/**
- *  main - main function
- *  @arg: the number of arguments
- *  @argv: the array of argumants
- *  Return: int
- */
 int main(void)
 {
-	char *args[1024];
-	int time;
-	char *buff;
-	int i = 0;
-	char *input_copy;
+	char *buff = NULL; 
+	char *input_copy = NULL;
 	char *token = NULL;
-	const char  *delim = " ";
+	char *path_location = NULL;
+	char *args[1204];
+	const char *delim = " ";
+	int i;
+	int time = 0;
 	pid_t cp;
+
 
 	while (1)
 	{
 		buff = prompt();
-
+		
 		if (buff == NULL)
-			return (-1);		
+			return (-1);
 
 		input_copy = strdup(buff);
-		if (input_copy  == NULL)
-		{
-			perror("Memory allocation error:\n");
-			return (1);
-		}
-		if (input_copy == "exit");
-			exit (0);
-		/* tokenize the user input */
-		token = strtok(input_copy, delim);		
 
+		if (input_copy == NULL)
+		{
+			perror("Memory allocation error");
+			return (-1);
+		}
+		if (strcmp(input_copy, "exit") == 0)
+			exit(0);
+		/* tokenize the user input */
+		token = strtok(input_copy, delim);
+		i = 0;
+		while (token != NULL)
+		{
+			args[i] = token;
+			token = strtok(NULL, delim);
+			i++;
+			
+		}
+		args[i] = NULL;
+		/* get the full path */
+		path_location = get_location(args[0]);
+		if (path_location == NULL)
+			perror("");	
+		args[0] = path_location;	
 		/* create a child process */
 		cp = fork();
 
 		if (cp == -1)
-			perror("The process failed");
-
+			perror("The process failed ");
 		if (cp == 0)
 		{
-			while (token != NULL && i < 1023)
-			{
-				args[i] = token;				
-				token = strtok(NULL, delim);
-				i++;
-			}
-			args[i] = NULL;
-			/* execute a child prcess */
 			execmd(args);
 			exit(0);
 		}
@@ -57,7 +58,6 @@ int main(void)
 		{
 			wait(&time);
 		}
-			
 		free(input_copy);
 	}
 	free(buff);
