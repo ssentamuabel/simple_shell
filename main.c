@@ -1,7 +1,7 @@
 #include "main.h"
-int main(void)
+int main(int num, char *argv[], char *envp[])
 {
-	char *buff = NULL; 
+	char *buff = NULL;	
 	char *input_copy = NULL;
 	char *token = NULL;
 	char *path_location = NULL;
@@ -11,6 +11,9 @@ int main(void)
 	int time = 0;
 	pid_t cp;
 
+	(void)num;
+	(void)argv;
+
 
 	while (1)
 	{
@@ -18,6 +21,16 @@ int main(void)
 		
 		if (buff == NULL)
 			return (-1);
+		if (strcmp(buff, "env"))
+		{
+			i = 0;
+			for (i = 0; envp[i] != NULL; i++)
+			{
+				_puts(envp[i]);
+				_puts("\n");
+			}
+			return (-1);	
+		}
 
 		input_copy = strdup(buff);
 

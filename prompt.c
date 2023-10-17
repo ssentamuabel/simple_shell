@@ -2,18 +2,18 @@
 char *prompt (void)
 {
 	char *display = "(sashell)$ ";
-	char *buff = NULL;
+	char *input = NULL;
 	size_t size;
 	ssize_t result;
 
 	_puts(display);
-	if ((result = getline(&buff, &size, stdin)) == -1)
+	if ((result = getline(&input, &size, stdin)) == -1)
 	{
 		perror("Exit");
 		return (NULL);
 	}
-	if (buff[result - 1] =='\n')
-		buff[result - 1] = '\0';
+	if (input[result - 1] =='\n')
+		input[result - 1] = '\0';
 	
-	return (buff);
+	return (input);
 }
