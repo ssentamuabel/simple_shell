@@ -11,7 +11,8 @@ char *prompt(void)
 	ssize_t result;
 
 	_puts(display);
-	if ((result = getline(&buff, &size, stdin))== -1)
+	result = getline(&buff, &size, stdin);
+		if (result == -1)
 	{
 		perror("Exit");
 		return (NULL);
