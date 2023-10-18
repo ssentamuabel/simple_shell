@@ -15,7 +15,7 @@
 /* function prototypes */
 int _putchar(char c);
 int _puts(char *str);
-char *prompt (void);
+char *prompt(void);
 void execmd(char **args);
 char *get_location(char *command);
 

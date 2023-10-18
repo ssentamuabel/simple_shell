@@ -1,7 +1,11 @@
 #include "main.h"
-int main(int num, char *argv[], char *envp[])
+/**
+ * main- main function
+ * Return: 0 (Success)
+ */
+int main(void)
 {
-	char *buff = NULL;	
+	char *buff = NULL;
 	char *input_copy = NULL;
 	char *token = NULL;
 	char *path_location = NULL;
@@ -18,7 +22,6 @@ int main(int num, char *argv[], char *envp[])
 	while (1)
 	{
 		buff = prompt();
-		
 		if (buff == NULL)
 			return (-1);
 		if (strcmp(buff, "env"))
@@ -49,17 +52,15 @@ int main(int num, char *argv[], char *envp[])
 			args[i] = token;
 			token = strtok(NULL, delim);
 			i++;
-			
 		}
 		args[i] = NULL;
 		/* get the full path */
 		path_location = get_location(args[0]);
 		if (path_location == NULL)
-			perror("");	
-		args[0] = path_location;	
+			perror("");
+		args[0] = path_location;
 		/* create a child process */
 		cp = fork();
-
 		if (cp == -1)
 			perror("The process failed ");
 		if (cp == 0)
