@@ -3,7 +3,7 @@
  * main- main function
  * Return: 0 (Success)
  */
-int main(void)
+int main(int num, char **argv, char * envp[])
 {
 	char *buff = NULL;
 	char *input_copy = NULL;
@@ -24,7 +24,9 @@ int main(void)
 		buff = prompt();
 		if (buff == NULL)
 			return (-1);
-		if (strcmp(buff, "env"))
+
+		
+		if (strcmp(buff, "env") == 0)
 		{
 			i = 0;
 			for (i = 0; envp[i] != NULL; i++)
@@ -32,9 +34,10 @@ int main(void)
 				_puts(envp[i]);
 				_puts("\n");
 			}
-			return (-1);	
+			continue;	
 		}
 
+		
 		input_copy = strdup(buff);
 
 		if (input_copy == NULL)
