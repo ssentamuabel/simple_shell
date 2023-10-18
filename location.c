@@ -1,4 +1,12 @@
 #include "main.h"
+
+/**
+ * get_location -function gets file location
+ * @command: command to be found
+ * Return: the command location
+ */
+char *get_location(char *command);
+
 char *get_location(char *command)
 {
 	char *path, *path_copy, *file_path, *path_token;
@@ -27,21 +35,17 @@ char *get_location(char *command)
 			strcat(file_path, "/");
 			strcat(file_path, command);
 			strcat(file_path, "\0");
-
-			if (stat(file_path, &buff)== 0)
+			if (stat(file_path, &buff) == 0)
 			{
 				free(path_copy);
 				return (file_path);
 			}
 			else
 			{
-			
 				path_token = strtok(NULL, ":");
 			}
-			
 		}
 		free(path_copy);
-		
 		/* Check  if the command itself existed */
 		if (stat(command, &buff) == 0)
 			return (command);

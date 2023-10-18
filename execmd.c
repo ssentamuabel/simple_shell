@@ -1,4 +1,10 @@
 #include "main.h"
+
+/**
+ * execmd -function that runs an executable
+ * @args: arguments address
+ * return: void
+ */
 void execmd(char **args)
 {
 	char *command = NULL;
