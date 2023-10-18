@@ -1,9 +1,13 @@
 #include "main.h"
+int main(int num, char **argv, char *envp[]);
 /**
  * main- main function
+ * @argv: arguments
+ * @num: number
+ * @envp: environment variable
  * Return: 0 (Success)
  */
-int main(int num, char **argv, char * envp[])
+int main(int num, char **argv, char *envp[])
 {
 	char *buff = NULL;
 	char *input_copy = NULL;
@@ -24,8 +28,6 @@ int main(int num, char **argv, char * envp[])
 		buff = prompt();
 		if (buff == NULL)
 			return (-1);
-
-		
 		if (strcmp(buff, "env") == 0)
 		{
 			i = 0;
@@ -34,12 +36,9 @@ int main(int num, char **argv, char * envp[])
 				_puts(envp[i]);
 				_puts("\n");
 			}
-			continue;	
+			continue;
 		}
-
-		
 		input_copy = strdup(buff);
-
 		if (input_copy == NULL)
 		{
 			perror("Memory allocation error");

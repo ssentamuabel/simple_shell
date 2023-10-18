@@ -1,4 +1,8 @@
 #include "main.h"
+/**
+ * prompt- function that generates a prompt
+ * Return: void
+ */
 char *prompt(void)
 {
 	char *display = "(sashell)$ ";
@@ -7,7 +11,8 @@ char *prompt(void)
 	ssize_t result;
 
 	_puts(display);
-	if ((result = getline(&buff, &size, stdin)) == -1)
+	result = getline(&buff, &size, stdin);
+		if (result == -1)
 	{
 		perror("Exit");
 		return (NULL);
