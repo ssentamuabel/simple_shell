@@ -38,14 +38,14 @@ int main(int num, char **argv, char *envp[])
 			}
 			continue;
 		}
+		if (strcmp(buff, "exit") == 0)
+			exit(0);
 		input_copy = strdup(buff);
 		if (input_copy == NULL)
 		{
 			perror("Memory allocation error");
 			return (-1);
 		}
-		if (strcmp(input_copy, "exit") == 0)
-			exit(0);
 		/* tokenize the user input */
 		token = strtok(input_copy, delim);
 		i = 0;
