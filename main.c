@@ -74,6 +74,7 @@ int main(int num, char **argv, char *envp[])
 			status = 127;
 			continue;
 		}
+		args[0] = path_location;
 		/* create a child process */
 		cp = fork();
 		if (cp == -1)
@@ -86,7 +87,6 @@ int main(int num, char **argv, char *envp[])
 		else
 		{
 			wait(&time);
-			status = WEXITSTATUS(time);
 		}
 		free(input_copy);
 	}
