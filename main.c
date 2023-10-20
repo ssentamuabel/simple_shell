@@ -27,7 +27,7 @@ int main(int num, char **argv, char *envp[])
 		dec++;
 		buff = prompt();
 		if (buff == NULL)
-			continue;
+			return (-1);
 		if (strcmp(buff, "env") == 0)
 		{
 			i = 0;
