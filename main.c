@@ -9,14 +9,13 @@ int main(int num, char **argv, char *envp[]);
  */
 int main(int num, char **argv, char *envp[])
 {
-	char *buff = NULL;
-	char *input_copy = NULL;
+	char *buff = NULL, *input_copy = NULL;
 	char *token = NULL;
 	char *path_location = NULL;
 	char *args[1204];
 	const char *delim = " ";
-	int i;
-	int time = 0;
+	int i, status = 0;
+	int time = 0, dec = 0;
 	pid_t cp;
 
 	(void)num;
@@ -25,9 +24,10 @@ int main(int num, char **argv, char *envp[])
 
 	while (1)
 	{
+		dec++;
 		buff = prompt();
 		if (buff == NULL)
-			return (-1);
+			continue;
 		if (strcmp(buff, "env") == 0)
 		{
 			i = 0;
@@ -36,16 +36,17 @@ int main(int num, char **argv, char *envp[])
 				_puts(envp[i]);
 				_puts("\n");
 			}
+			status = 0;
 			continue;
 		}
+		if (strcmp(buff, "exit") == 0)
+			exit(status);
 		input_copy = strdup(buff);
 		if (input_copy == NULL)
 		{
 			perror("Memory allocation error");
 			return (-1);
 		}
-		if (strcmp(input_copy, "exit") == 0)
-			exit(0);
 		/* tokenize the user input */
 		token = strtok(input_copy, delim);
 		i = 0;
@@ -56,11 +57,20 @@ int main(int num, char **argv, char *envp[])
 			i++;
 		}
 		args[i] = NULL;
+		free(buff);
 		/* get the full path */
 		path_location = get_location(args[0]);
 		if (path_location == NULL)
-			perror("");
-		args[0] = path_location;
+		{
+			std_er(argv[0]);
+			std_er(": ");
+			con_int(dec);
+			std_er(": ");
+			std_er(args[0]);
+			std_er(": not found\n");
+			status = 127;
+			continue;
+		}
 		/* create a child process */
 		cp = fork();
 		if (cp == -1)
@@ -73,10 +83,10 @@ int main(int num, char **argv, char *envp[])
 		else
 		{
 			wait(&time);
+			status = WEXITSTATUS(time);
 		}
 		free(input_copy);
 	}
-	free(buff);
 
 	return (0);
 }

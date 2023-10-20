@@ -13,6 +13,8 @@
 
 
 /* function prototypes */
+int std_er(char *r);
+void con_int(int n);
 int _putchar(char c);
 int _puts(char *str);
 char *prompt(void);
