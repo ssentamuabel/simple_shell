@@ -40,11 +40,10 @@ int main(int num, char **argv, char *envp[])
 			continue;
 		}
 		if (strcmp(buff, "exit") == 0)
-<<<<<<< HEAD
+		{
 			exit(status);
-=======
 			exit(0);
->>>>>>> b6c45561b75f218e7016058f1624cfc6ec2a545b
+		}
 		input_copy = strdup(buff);
 		if (input_copy == NULL)
 		{
